@@ -47,9 +47,10 @@ def convert_to_datetime(date):
     # fromisoformat can't handle a full ISO 8601 string, remove the Z.
     if date[-1] == 'Z':
         date = date[:-1]
-    # FIXME: expiration dates with offsets like fart.com, don't ask why I
-    # tried that one, and wag.com, cant be converted. It looks like they
-    # can be fixed by manually inserting colons in their offsets.
+    # check for offset format missing the semicolon that fromisoformat expects
+    if date[-5] == '-' or date[-5] == '+':
+        if ':' not in date[-4:]:
+            date = date[:-2] + ':' + date[-2:]
     try:
         date_time = datetime.fromisoformat(date)
     except ValueError:
