@@ -11,9 +11,9 @@ python3 domain_expiry.py example.com
 Alternatively:
 
 ```
-from domain_expiry import get_domain_expiry_date
+from domain_expiry import domain_expiry_date
 
-expiry_date = get_domain_expiry_date('example.com')
+expiry_date = domain_expiry_date('example.com')
 ```
 
 The input should be any .com domain name, without prefixes like https:// or www.
@@ -24,6 +24,8 @@ The expiration date as a datetime object
 
 As a fallback, if the date string couldn't be parsed, returns the date string as provided by the registrar
 
-## Credits
+## Notes
+
+Developed and tested using Python 3.9
 
 Thanks to [Silver Moon at Binary Tides](https://www.binarytides.com/python-program-to-fetch-domain-whois-data-using-sockets/)

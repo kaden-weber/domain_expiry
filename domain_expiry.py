@@ -22,10 +22,11 @@ def get_whois_data(server, domain):
 
 
 def parse_whois_data_for_entry(data, field_name):
-    # searches a string for a line like
-    # field_name: value
-    # and returns value
-    # returns none if no matching field name could be found
+    '''
+    searches a ``data`` string for a line like '``field_name``: value'
+
+    returns value or None if no matching field name could be found
+    '''
     entries = data.splitlines()
     for entry in entries:
         if field_name in entry:
@@ -48,7 +49,7 @@ def convert_to_datetime(date):
         date = date[:-1]
     # FIXME: expiration dates with offsets like fart.com, don't ask why I
     # tried that one, and wag.com, cant be converted. It looks like they
-    # can be fixed by inserting colons in their offsets.
+    # can be fixed by manually inserting colons in their offsets.
     try:
         date_time = datetime.fromisoformat(date)
     except ValueError:
@@ -57,7 +58,7 @@ def convert_to_datetime(date):
     return date_time
 
 
-def get_domain_expiry_date(domain):
+def domain_expiry_date(domain):
     registrar_server = get_registrar_whois_server(domain)
     whois_data = get_whois_data(registrar_server, domain)
     # now find the expiration date
@@ -72,4 +73,4 @@ def get_domain_expiry_date(domain):
 
 if __name__ == "__main__":
     domain = sys.argv[1]
-    print(get_domain_expiry_date(domain))
+    print(domain_expiry_date(domain))
